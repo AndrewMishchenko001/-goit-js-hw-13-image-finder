@@ -16,6 +16,7 @@ const refs = {
   searchForm: document.querySelector('.js-search-form'),
   imgCardContainer: document.querySelector('.js-card-container'),
   imgContainer: document.querySelector('.gallery'),
+  buttonMore: document.querySelector('.button')
 };
 const loadMoreBtn = new LoadMoreBtn({
   selector: '[data-action="load-more"]',
@@ -67,12 +68,13 @@ async function fetchHits() {
     const response = await apiImages.fetchImages();
     if (response.length === 0) {
       noPicturesAtAll();
-      animateScrollTo(0, options);
+      // animateScrollTo(0, options);
     } else if (response.length > 0) {
       imagesMurkup(response);
 
       loadMoreBtn.enable();
       animateScroll();
+      
     }
 
     if (response.length < 12) {
@@ -84,7 +86,18 @@ async function fetchHits() {
 }
 
 function imagesMurkup(hits) {
+  
   refs.imgCardContainer.insertAdjacentHTML('beforeend', imgCardTpl(hits));
+  autoScroll();
+  
+ }
+ export function autoScroll () {
+ setTimeout(() => {
+ refs.buttonMore.scrollIntoView({
+     behavior: 'smooth',
+           block: 'end',
+       });
+    }, 1000);
 }
 
 function clearImgContainer() {

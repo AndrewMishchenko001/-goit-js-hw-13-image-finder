@@ -1,3 +1,5 @@
+import { autoScroll } from "./img-finder";
+
 export default class LoadMoreBtn {
   constructor({ selector, hidden = false }) {
     this.refs = this.getRefs(selector);
@@ -24,6 +26,7 @@ export default class LoadMoreBtn {
     this.refs.button.disabled = true;
     this.refs.label.textContent = 'Loading...';
     this.refs.spinner.classList.remove('is-hidden');
+  
   }
 
   show() {
